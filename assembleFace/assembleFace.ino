@@ -34,10 +34,68 @@ Adafruit_NeoPixel right = Adafruit_NeoPixel(9, F_PIN, NEO_GRB + NEO_KHZ800);
   const uint32_t GREY_R = right.Color(15,15,15);
   
   // faces
+
+  // step 1
   const uint32_t daisyTop[] = {GREY_T,WHITE_T, GREY_T,
                             WHITE_T, YELLOW_T, WHITE_T,
                             GREY_T, WHITE_T, GREY_T};
+                            
+  const uint32_t startTop[] = {GREY_T, GREY_T, GREY_T,
+                              GREY_T, YELLOW_T, GREY_T,
+                              GREY_T, GREY_T, GREY_T};
 
+  const uint32_t middleFront1[] = {GREY_F, GREY_F, GREY_F,
+                                  GREY_F, GREY_F, GREY_F,
+                                  GREY_F, WHITE_F, GREY_F};
+                                  
+  const uint32_t rot1DaisyTop1[] = {GREY_T,GREY_T, GREY_T,
+                                   WHITE_T, YELLOW_T, GREY_T,
+                                    GREY_T, GREY_T, GREY_T};
+                                    
+  const uint32_t rot2DaisyTop1[] = {GREY_T,GREY_T, GREY_T,
+                                   GREY_T, YELLOW_T, GREY_T,
+                                    GREY_T, WHITE_T, GREY_T};
+
+  const uint32_t rot3DaisyTop1[] = {GREY_T,GREY_T, GREY_T,
+                                   GREY_T, YELLOW_T, WHITE_T,
+                                    GREY_T, GREY_T, GREY_T}; 
+                                    
+  const uint32_t rot4DaisyTop1[] = {GREY_T,WHITE_T, GREY_T,
+                                   GREY_T, YELLOW_T, GREY_T,
+                                    GREY_T, GREY_T, GREY_T};
+
+  const uint32_t rot1DaisyTop2[] = {GREY_T,WHITE_T, GREY_T,
+                                   WHITE_T, YELLOW_T, GREY_T,
+                                    GREY_T, GREY_T, GREY_T};
+
+  const uint32_t rot2DaisyTop2[] = {GREY_T,GREY_T, GREY_T,
+                                   WHITE_T, YELLOW_T, GREY_T,
+                                    GREY_T, WHITE_T, GREY_T};
+
+  const uint32_t rot3DaisyTop2[] = {GREY_T,GREY_T, GREY_T,
+                                   GREY_T, YELLOW_T, WHITE_T,
+                                    GREY_T, WHITE_T, GREY_T};                                                                                                                
+
+  const uint32_t rot4DaisyTop2[] = {GREY_T, WHITE_T, GREY_T,
+                                   GREY_T, YELLOW_T, WHITE_T,
+                                    GREY_T, GREY_T, GREY_T}; 
+                                                                                                              
+  const uint32_t rot1DaisyTop3[] = {GREY_T,GREY_T, GREY_T,
+                            WHITE_T, YELLOW_T, WHITE_T,
+                            GREY_T, WHITE_T, GREY_T};
+
+  const uint32_t rot2DaisyTop3[] = {GREY_T,WHITE_T, GREY_T,
+                            GREY_T, YELLOW_T, WHITE_T,
+                            GREY_T, WHITE_T, GREY_T};                                                                
+  
+  const uint32_t rot3DaisyTop3[] = {GREY_T,WHITE_T, GREY_T,
+                            WHITE_T, YELLOW_T, WHITE_T,
+                            GREY_T, GREY_T, GREY_T};  
+  
+  const uint32_t rot4DaisyTop3[] = {GREY_T,WHITE_T, GREY_T,
+                            WHITE_T, YELLOW_T, GREY_T,
+                            GREY_T, WHITE_T, GREY_T};  
+  // faces off
   const uint32_t offTop[] = {GREY_T, GREY_T, GREY_T,
                              GREY_T, GREY_T, GREY_T,
                              GREY_T, GREY_T, GREY_T};
@@ -49,14 +107,6 @@ Adafruit_NeoPixel right = Adafruit_NeoPixel(9, F_PIN, NEO_GRB + NEO_KHZ800);
   const uint32_t offRight[] = {GREY_R, GREY_R, GREY_R,
                              GREY_R, GREY_R, GREY_R,
                              GREY_R, GREY_R, GREY_R};
-  
-// Parameter 1 = number of pixels in strip
-// Parameter 2 = pin number (most are valid)
-// Parameter 3 = pixel type flags, add together as needed:
-//   NEO_KHZ800  800 KHz bitstream (most NeoPixel products w/WS2812 LEDs)
-//   NEO_KHZ400  400 KHz (classic 'v1' (not v2) FLORA pixels, WS2811 drivers)
-//   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
-//   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
 
 void setup() {
   // put your setup code here, to run once:
@@ -65,6 +115,7 @@ void setup() {
   top.begin();
   right.begin();
   front.begin();
+  Serial.begin(9600);
   
   top.setBrightness(64);
   right.setBrightness(64);
@@ -78,10 +129,15 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   // daisyTop(500);
-  setFace(daisyTop,500,"top");
+  //Serial.println("Step 1: Create Daisy");
+  //Serial.println("Select Current Layout");
+  
+  setFace(middleFront1,"front");
+  setFace(rot1DaisyTop1, "top");
+  setFace(offRight, "right");
 }
 
-void setFace(uint32_t colors[], int wait, String face){
+void setFace(uint32_t colors[], String face){
   if (face == "top"){
       for(int i = 0; i < 9; i++){
       top.setPixelColor(i,colors[i]);
@@ -102,5 +158,5 @@ void setFace(uint32_t colors[], int wait, String face){
       right.show();
     }
   }
-  delay(wait);
+  delay(1);
 }
