@@ -95,6 +95,7 @@ Adafruit_NeoPixel right = Adafruit_NeoPixel(9, F_PIN, NEO_GRB + NEO_KHZ800);
   const uint32_t rot4DaisyTop3[] = {GREY_T,WHITE_T, GREY_T,
                             WHITE_T, YELLOW_T, GREY_T,
                             GREY_T, WHITE_T, GREY_T};  
+  
   // faces off
   const uint32_t offTop[] = {GREY_T, GREY_T, GREY_T,
                              GREY_T, GREY_T, GREY_T,
